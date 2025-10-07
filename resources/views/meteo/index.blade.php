@@ -21,62 +21,75 @@
             <marquee>Bienvenue 👇👇</marquee>
         </h2>
 
-        <h1 class="position-relative py-2 px-4 text-bg-secondary border border-secondary rounded-pill">
-            Guide Agricole</h1>
+        <div class="container py-5">
 
-        <div class="container py-4">
-            <div class="row g-3 justify-content-center">
-
-                <!-- Bouton 1 -->
-                <div class="col-10 col-md-5">
-                    <a href="/semence" class="text-decoration-none">
-                        <div class="p-4 bg-light rounded-4 shadow-sm text-center border border-success">
-                            <h5 class="mb-2">🌱 Choix des semences</h5>
-                            <hr>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Bouton 2 -->
-                <div class="col-10 col-md-5">
-                    <a href="guide/semis" class="text-decoration-none">
-                        <div class="p-4 bg-light rounded-4 shadow-sm text-center border border-primary">
-                            <h5 class="mb-2">🧪 Techniques de semis</h5>
-                            <hr>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Bouton 3 -->
-                <div class="col-10 col-md-5">
-                    <a href="guide/entretien" class="text-decoration-none">
-                        <div class="p-4 bg-light rounded-4 shadow-sm text-center border border-warning">
-                            <h5 class="mb-2">🌿 Entretien des cultures</h5>
-                            <hr>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Bouton 4 -->
-                <div class="col-10 col-md-5">
-                    <a href="guide/lutte-maladies" class="text-decoration-none">
-                        <div class="p-4 bg-light rounded-4 shadow-sm text-center border border-danger">
-                            <h5 class="mb-2">🛡️ Lutte contre les maladies</h5>
-                            <hr>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-10 col-md-5">
-                    <a href="guide/planification" class="text-decoration-none">
-                        <div class="p-4 bg-light rounded-4 shadow-sm text-center border border-danger">
-                            <h5 class="mb-2">🛡️planifiers vos cultures</h5>
-                            <hr>
-                        </div>
-                    </a>
-                </div>
-
+            <!-- Bannière d'accueil -->
+            <div class="bg-success text-white text-center py-3 rounded mb-5 shadow">
+                <h2 class="fw-bold">Bienvenue sur Baykat+ 🌿</h2>
+                <p class="mb-0">Consultez la météo agricole pour mieux planifier vos semis, arrosages et récoltes.</p>
             </div>
-        </div>
 
+            <!-- Formulaire de recherche -->
+            <form method="GET" action="{{ route('meteo.index') }}" class="d-flex justify-content-center mb-5">
+                <input type="text" name="ville" value="{{ $ville }}"
+                       class="form-control w-50 me-2 rounded-pill shadow-sm" placeholder="🌍 Entrez une ville (ex: Thiès)">
+                <button type="submit" class="btn btn-success rounded-pill px-4">🔍 Rechercher</button>
+            </form>
+
+            <!-- Météo actuelle -->
+            @if($meteo)
+            <div class="bg-light p-4 rounded shadow text-center mb-5 border border-success">
+                <h2 class="text-success fw-bold">{{ $meteo['name'] }}</h2>
+                <p class="display-4">{{ $meteo['main']['temp'] }} °C 🌡</p>
+                <p class="text-muted fst-italic">{{ ucfirst($meteo['weather'][0]['description']) }}</p>
+                <div class="d-flex justify-content-around mt-3">
+                    <span>💨 Vent : {{ $meteo['wind']['speed'] }} m/s</span>
+                    <span>💧 Humidité : {{ $meteo['main']['humidity'] }} %</span>
+                </div>
+            </div>
+
+            <!-- Conseils agricoles dynamiques -->
+            @if($meteo['main']['temp'] > 30)
+            <div class="alert alert-warning text-center">
+                🌞 Température élevée : Pensez à arroser tôt le matin ou en fin de journée.
+            </div>
+            @elseif($meteo['weather'][0]['main'] === 'Rain')
+            <div class="alert alert-info text-center">
+                🌧️ Pluie prévue : Évitez les semis aujourd’hui, privilégiez le drainage.
+            </div>
+            @endif
+            @endif
+
+            <!-- Prévisions sur 5 jours -->
+            @if($forecast)
+            <h2 class="text-primary fw-bold mb-4">📅 Prévisions sur 5 jours</h2>
+
+            @php
+            $grouped = collect($forecast['list'])->groupBy(function($item) {
+            return \Carbon\Carbon::parse($item['dt_txt'])->format('d/m');
+            });
+            @endphp
+
+            @foreach($grouped as $date => $items)
+            <h4 class="mt-4 text-success fw-bold">📆 {{ $date }}</h4>
+            <div class="row">
+                @foreach($items as $item)
+                <div class="col-md-3 mb-3">
+                    <div class="card text-center shadow-sm">
+                        <div class="card-body">
+                            <p class="fw-semibold">{{ \Carbon\Carbon::parse($item['dt_txt'])->format('H:i') }}</p>
+                            <p class="fs-5">{{ $item['main']['temp'] }} °C</p>
+                            <p class="text-muted">{{ ucfirst($item['weather'][0]['description']) }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endforeach
+            @else
+            <p class="text-danger text-center fw-semibold">⚠ Impossible de récupérer les prévisions météo.</p>
+            @endif
+
+        </div>
         </body>
 </html>

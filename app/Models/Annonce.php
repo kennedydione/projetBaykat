@@ -15,4 +15,9 @@ class Annonce extends Model
         'prix',
         'poids',
     ];
+    public function demandes()
+    {
+        return $this->hasMany(Demande::class);
+    }
+
 }

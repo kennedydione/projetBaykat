@@ -20,7 +20,7 @@
        <!-- Illustration principale -->
        <div class="row justify-content-center mb-5">
            <div class="col-md-8 text-center">
-               <img src="/images/semis-illustration.png" alt="Illustration semis" class="img-fluid rounded shadow">
+               <img src="{{ asset('images/img3.png') }}" class="card-img-top" alt="ulistration">
                <p class="mt-3">Maïs • Riz hybride • Tomates résistantes</p>
                <div class="d-flex justify-content-center gap-3 mt-2">
                    <span class="badge bg-warning text-dark">☀️ Soleil</span>
@@ -33,30 +33,34 @@
        <div class="row g-4">
            <div class="col-md-4">
                <div class="card h-100 shadow-sm">
-                   <img src="/images/S-direct.png" class="card-img-top" alt="Semi direct">
+                   <img src="{{ asset('images/img.png') }}" class="card-img-top" alt="Semi direct">
                    <div class="card-body text-center">
                        <h5 class="card-title">🌾 Semi direct</h5>
                        <p class="card-text">Semis directement en terre sans préparation complexe.</p>
+                       <a href="{{ route('semis.direct') }}">lire plus ici</a>
                    </div>
                </div>
            </div>
 
            <div class="col-md-4">
                <div class="card h-100 shadow-sm">
-                   <img src="/images/semi-ligne.png" class="card-img-top" alt="Semi en ligne">
+                   <img src="{{ asset('images/img1.png') }}" class="card-img-top" alt="Semi en ligne">
+
                    <div class="card-body text-center">
                        <h5 class="card-title">📏 Semi en ligne</h5>
                        <p class="card-text">Semis organisé en rangées pour faciliter l’entretien.</p>
+                       <a href="{{ route('semis.ligne') }}">lire plus ici</a>
                    </div>
                </div>
            </div>
 
            <div class="col-md-4">
                <div class="card h-100 shadow-sm">
-                   <img src="/images/semi-pepiniere.png" class="card-img-top" alt="Semi en pépinière">
+                   <img src="{{ asset('images/img2.png') }}" class="card-img-top" alt="Semi pepiniere">
                    <div class="card-body text-center">
                        <h5 class="card-title">🪴 Semi en pépinière</h5>
                        <p class="card-text">Semis en bac ou en pot avant transplantation.</p>
+                       <a href="{{ route('semis.pepiniere') }}">lire plus ici</a>
                    </div>
                </div>
            </div>

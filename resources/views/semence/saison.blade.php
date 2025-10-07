@@ -14,29 +14,31 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
     <h2><marquee><h2><marquee>Bienvenue 👇👇 </marquee></h2></marquee></h2>
+    <body>
+    <div class="container py-4">
+        <h2 class="text-center mb-4">
+            🌾 Semences pour la saison {{ ucfirst($saison) }}
+        </h2>
 
-    @section('content')
-    <div class="container py-5">
-        <h2 class="mb-4">🌾 Semences pour la saison {{ ucfirst($saison) }}</h2>
-
-        <form action="{{ route('semence.valider') }}" method="POST">
+        <form method="POST" action="{{ route('semence.valider') }}">
             @csrf
             <input type="hidden" name="saison" value="{{ $saison }}">
 
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                @foreach($semences as $semence)
-                <div class="col">
+            <div class="row g-4 justify-content-center">
+                @foreach ($semences as $semence)
+                <div class="col-md-4 text-center">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body">
+                            <img src="{{ asset('images/riz.jpg') }}" alt="Riz"
+
+                            class="img-fluid rounded-circle mb-3"
+                                 style="width: 120px; height: 120px; object-fit: cover;">
                             <h5 class="card-title">{{ $semence['nom'] }}</h5>
                             <p class="card-text">{{ $semence['description'] }}</p>
-                            <ul class="list-unstyled">
-                                <li><strong>Cycle :</strong> {{ $semence['cycle'] }}</li>
-                                <li><strong>Rendement :</strong> {{ $semence['rendement'] }} kg/ha</li>
-                            </ul>
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="choix[]" value="{{ $semence['nom'] }}">
-                                <label class="form-check-label">Choisir cette semence</label>
+                            <p class="text-muted">Cycle : {{ $semence['cycle'] }}<br>Rendement : {{ $semence['rendement'] }} kg/ha</p>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="choix[]" value="{{ $semence['nom'] }}" id="{{ $semence['nom'] }}">
+                                <label class="form-check-label" for="{{ $semence['nom'] }}">Choisir cette semence</label>
                             </div>
                         </div>
                     </div>
@@ -44,10 +46,11 @@
                 @endforeach
             </div>
 
-            <div class="text-end mt-4">
+            <div class="text-center mt-4">
                 <button type="submit" class="btn btn-success">✅ Valider ma sélection</button>
             </div>
         </form>
     </div>
+
     </body>
 </html>

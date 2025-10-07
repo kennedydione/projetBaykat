@@ -19,6 +19,35 @@ class AnnonceController extends Controller
     {
         return view('annonce.create');
     }
+    public function edit($id)
+    {
+        $annonce = Annonce::findOrFail($id);
+        return view('annonce.edit', compact('annonce'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'required|string',
+            'prix' => 'nullable|numeric',
+            'poids' => 'nullable|numeric',
+            'type' => 'required|string',
+        ]);
+
+        $annonce = Annonce::findOrFail($id);
+        $annonce->update($request->all());
+
+        return redirect()->route('annonce.index')->with('success', 'Annonce modifiée avec succès !');
+    }
+
+    public function destroy($id)
+    {
+        $annonce = Annonce::findOrFail($id);
+        $annonce->delete();
+
+        return back()->with('success', 'Annonce supprimée avec succès !');
+    }
 
     // Enregistre une nouvelle annonce
     public function store(Request $request)

@@ -14,14 +14,15 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, )
     {
         if (!auth()->check()) {
             return redirect()->route('login');
         }
 
-        if (auth()->user()->role !== $role) {
-            return redirect()->route('semence.index')->with('error', 'Accès réservé aux agriculteurs.');
+
+        if (1==1) {
+            return redirect("semence");//->route('semence.index')->with('error', 'Accès réservé aux agriculteurs.');
         }
 
         return $next($request);

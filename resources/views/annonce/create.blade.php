@@ -15,6 +15,7 @@
     </head>
     <h2><marquee>Ajouter votre annonce🤣👇👇 </marquee></h2>
 
+
     @section('content')
     <div class="container py-5">
         <h2 class="mb-4">📝 Nouvelle annonce</h2>

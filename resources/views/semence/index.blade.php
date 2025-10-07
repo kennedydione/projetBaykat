@@ -15,18 +15,24 @@
     </head>
     <h2><marquee><h2><marquee>Bienvenue 👇👇 </marquee></h2></marquee></h2>
 
-    @section('content')
     <div class="container py-5 text-center">
-        <h2 class="mb-4">🌱 Choisissez la saison de culture</h2>
+        <h1 class="mb-4 text-success fw-bold">🌱 Quelle saison souhaitez-vous planifier ?</h1>
 
-        <div class="d-flex justify-content-center gap-4">
-            <a href="{{ route('semence.saison', ['saison' => 'seche']) }}" class="btn btn-warning btn-lg">
-                🌞 Saison sèche
-            </a>
-            <a href="{{ route('semence.saison', ['saison' => 'humide']) }}" class="btn btn-primary btn-lg">
-                🌧️ Saison humide
-            </a>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3">
+                <a href="{{ route('semence.saison', ['saison' => 'sèche']) }}" class="btn btn-outline-warning w-100 py-3 rounded-pill shadow">
+                    🌞 Saison sèche
+                </a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ route('semence.saison', ['saison' => 'pluie']) }}" class="btn btn-outline-primary w-100 py-3 rounded-pill shadow">
+                    🌧️ Saison des pluies
+                </a>
+            </div>
         </div>
+
+        <p class="mt-4 text-muted">Vous pourrez ensuite choisir vos cultures, vos dates et visualiser votre calendrier agricole personnalisé.</p>
     </div>
+
     </body>
 </html>
