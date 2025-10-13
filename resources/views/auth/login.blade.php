@@ -42,6 +42,15 @@
             <x-primary-button class="ms-3">
                 {{ __('🔐 Se connecter') }}
             </x-primary-button>
+            <!-- Lien vers l'inscription -->
+        <div class="mt-4 text-center">
+            <span class="text-sm text-gray-600 dark:text-gray-400">
+                {{ __("Pas encore inscrit ?") }}
+            </span>
+            <a href="{{ url('/register') }}" class="text-sm text-gray-600 dark:text-gray-400">
+                {{ __("s'inscrire") }}
+            </a>
+        </div>
         </div>
     </form>
 </x-guest-layout>
