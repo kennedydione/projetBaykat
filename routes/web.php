@@ -49,6 +49,19 @@ Route::middleware(['auth', 'role:agriculteur'])->group(function () {
 //pour l'api méteo
 Route::get('/meteo', [MeteoController::class, 'index'])->name('meteo.index');
 
+Route::get('/client/home', function () {
+    return view('home.client');
+})->middleware(['auth', 'role:client']);
+
+Route::get('/agriculteur/home', function () {
+    return view('home.agriculteur');
+})->middleware(['auth', 'role:agriculteur']);
+
+Route::get('/admin/home', function () {
+    return view('home.admin');
+})->middleware(['auth', 'role:admin']);
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
