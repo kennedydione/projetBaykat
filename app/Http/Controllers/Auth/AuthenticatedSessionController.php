@@ -27,16 +27,24 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if(Auth::user()->role=='admin'){
+            return redirect('/admin/home');
+        }
+         if(Auth::user()->role=='agriculteur'){
+            return redirect('/agriculteur/home');
+        }
+         if(Auth::user()->role=='client'){
+            return redirect('/client/home');
+        }
+       return redirect()->intended(route('dashboard', absolute: false));
 
-       // return redirect()->intended(route('dashboard', absolute: false));
-         $role = Auth::user()->role;
-
-    return match ($role) {
-        'admin' => redirect('/admin/home'),
-        'agriculteur' => redirect('/agriculteur/home'),
-        'client' => redirect('/client/home'),
-        default => redirect('/'),
-    };
+       //  $role = Auth::user()->role;
+   // return match ($role) {
+     //   'admin' => redirect('/admin/home'),
+     //   'agriculteur' => redirect('/agriculteur/home'),
+    //    'client' => redirect('/client/home'),
+      //  default => redirect('/'),
+    //};
     }
 
     /**

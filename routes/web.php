@@ -51,15 +51,15 @@ Route::get('/meteo', [MeteoController::class, 'index'])->name('meteo.index');
 
 Route::get('/client/home', function () {
     return view('home.client');
-})->middleware(['auth', 'role:client']);
+})->middleware(['auth', 'client']);
 
 Route::get('/agriculteur/home', function () {
     return view('home.agriculteur');
-})->middleware(['auth', 'role:agriculteur']);
+})->middleware(['auth', 'agriculteur']);
 
 Route::get('/admin/home', function () {
     return view('home.admin');
-})->middleware(['auth', 'role:admin']);
+})->middleware(['auth', 'admin']);
 
 
 Route::get('/dashboard', function () {
