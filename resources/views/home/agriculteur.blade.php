@@ -20,6 +20,7 @@
         }
     </style>
 </head>
+
 <body>
 <div class="container py-5">
     <h1 class="text-center text-bg-warning py-2 px-4 rounded-pill mb-5">👨‍🌾 Bienvenue, Agriculteur</h1>
@@ -34,7 +35,7 @@
             </a>
         </div>
         <div class="col">
-            <a href="/agriculteur/annonces" class="text-decoration-none">
+            <a href="/annonce" class="text-decoration-none">
                 <div class="card border-success text-center p-4">
                     <h5 class="text-success fw-bold">📢 Mes annonces</h5>
                     <p class="text-muted small">Publiez vos produits, événements et offres locales.</p>
@@ -42,10 +43,34 @@
             </a>
         </div>
         <div class="col">
-            <a href="/agriculteur/suivi" class="text-decoration-none">
+            <a href="/suivi" class="text-decoration-none">
                 <div class="card border-info text-center p-4">
                     <h5 class="text-info fw-bold">📈 Suivi des cultures</h5>
                     <p class="text-muted small">Visualisez les indicateurs météo, irrigation et santé.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/admin/demandes" class="text-decoration-none">
+                <div class="card border-info text-center p-4">
+                    <h5 class="text-info fw-bold"> gerer les demandees</h5>
+                    <p class="text-muted small">superviser tous les dememde faites par les utilisateur.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/calendrier" class="text-decoration-none">
+                <div class="card border-info text-center p-4">
+                    <h5 class="text-info fw-bold">voir le clendrier agricole</h5>
+                    <p class="text-muted small">superviser tous les clendrier.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="/guide" class="text-decoration-none">
+                <div class="card border-info text-center p-4">
+                    <h5 class="text-info fw-bold"> voir le guides</h5>
+                    <p class="text-muted small">ici on veras les pages de notre guide.</p>
                 </div>
             </a>
         </div>

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Planification;
+use App\Http\Controllers\Auth;
 class AgriculteurController extends Controller
 {
     public function planification()

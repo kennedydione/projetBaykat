@@ -33,6 +33,8 @@
 
         <p class="mt-4 text-muted">Vous pourrez ensuite choisir vos cultures, vos dates et visualiser votre calendrier agricole personnalisé.</p>
     </div>
-
+  <a href="{{ url('/agriculteur/home') }}" class="btn btn-outline-success mb-4">
+    ⬅️ Retour à l’accueil agriculteur
+</a>
     </body>
 </html>

@@ -32,8 +32,6 @@ Route::get('/annonce', function () {
 });
 
 
-
-
 Route::get('/annonce', [AnnonceController::class, 'index'])->name('annonce.index');
 Route::post('/annonce', [AnnonceController::class, 'store'])->name('annonce.store');
 
@@ -48,6 +46,23 @@ Route::middleware(['auth', 'role:agriculteur'])->group(function () {
 });
 //pour l'api méteo
 Route::get('/meteo', [MeteoController::class, 'index'])->name('meteo.index');
+
+//pour la demende
+Route::post('/demande', [DemandeController::class, 'store'])->name('/agriculteur.demandes');
+
+Route::get('/agriculteur/demandes', function () {
+    return view('agriculteur.demandes');
+})->middleware(['auth', 'agriculteur']);
+
+use App\Models\Demande;
+
+Route::get('/agriculteur/demandes', function () {
+    $demandes = Demande::where('destinataire_role', 'agriculteur')->get();
+    return view('agriculteur.demandes', compact('demandes'));
+});
+
+     Route::get('/annonce/create', [AnnonceController::class, 'create'])->name('annonce.create');
+
 
 Route::get('/client/home', function () {
     return view('home.client');
@@ -66,6 +81,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+Route::get('rotation/', function () {
+    return view('lutte.rotation');
+    });
+Route::get('resistance/', function () {
+    return view('lutte.resistance');
+    });
+Route::get('bioc/', function () {
+    return view('lutte.bioc');
+    });
+
+    
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

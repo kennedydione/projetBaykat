@@ -66,6 +66,8 @@
            </div>
        </div>
    </div>
-
+  <a href="{{ url('/agriculteur/home') }}" class="btn btn-outline-success mb-4">
+    ⬅️ Retour à l’accueil agriculteur
+</a>
    </body>
 </html>

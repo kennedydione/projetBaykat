@@ -73,10 +73,10 @@
 
         @php
             $guides = [
-                ['link' => '/semence', 'color' => 'success', 'icon' => '🌱', 'title' => 'Choix des semences', 'desc' => 'Découvrez les semences adaptées à votre sol et climat.'],
-                ['link' => '/semis', 'color' => 'primary', 'icon' => '🧪', 'title' => 'Techniques de semis', 'desc' => 'Maîtrisez les méthodes de semis pour une germination optimale.'],
-                ['link' => '/entretien', 'color' => 'warning', 'icon' => '🌿', 'title' => 'Entretien des cultures', 'desc' => 'Arrosage, désherbage et soins pour des cultures saines.'],
-                ['link' => '/lutte-maladies', 'color' => 'danger', 'icon' => '🛡️', 'title' => 'Lutte contre les maladies', 'desc' => 'Prévention et traitement des maladies agricoles.'],
+                ['link' => 'agriculteur/semence', 'color' => 'success', 'icon' => '🌱', 'title' => 'Choix des semences', 'desc' => 'Découvrez les semences adaptées à votre sol et climat.'],
+                ['link' => 'agrilcuteur/semis', 'color' => 'primary', 'icon' => '🧪', 'title' => 'Techniques de semis', 'desc' => 'Maîtrisez les méthodes de semis pour une germination optimale.'],
+                ['link' => 'agriculteur/entretien', 'color' => 'warning', 'icon' => '🌿', 'title' => 'Entretien des cultures', 'desc' => 'Arrosage, désherbage et soins pour des cultures saines.'],
+                ['link' => 'agriculteur/lutte-maladies', 'color' => 'danger', 'icon' => '🛡️', 'title' => 'Lutte contre les maladies', 'desc' => 'Prévention et traitement des maladies agricoles.'],
                 ['link' => 'agriculteur/planification', 'color' => 'info', 'icon' => '📅', 'title' => 'Planifier vos cultures', 'desc' => 'Organisez votre saison agricole avec efficacité.'],
             ];
         @endphp

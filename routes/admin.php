@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\SemenceController;
+use App\Http\Controllers\AgriculteurController;
+use App\Http\Controllers\CalendrierController;
+use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\SemisController;
 
 Route::middleware(['auth','admin'])->group( function() {
 ;
@@ -12,6 +17,8 @@ Route::middleware(['auth','admin'])->group( function() {
         Route::get('/guide', [GuideController::class, 'index'])->name('guide.index');
           //le clendrier agricole
         Route::get('/agriculteur/calendrier', [CalendrierController::class, 'index'])->name('agriculteur.calendrier');
+        //annonce
+         Route::get('/annonce', function () {return view('annonce');});
         //pour creer une annonce
         Route::get('/annonce/create', [AnnonceController::class, 'create'])->name('annonce.create');
         //pour une demende annonce

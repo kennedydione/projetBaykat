@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Demande;
 use App\Models\Annonce;
+use Illuminate\Support\Facades\Auth;
 
 class DemandeController extends Controller
 {
@@ -30,18 +31,29 @@ class DemandeController extends Controller
         }
 
         Demande::create([
+             'client_id' => Auth::id(),
+            'agriculteur_id' => $request->agriculteur_id,
+            'annonce_id' => $request->annonce_id,
             'annonce_id' => $annonceId,
             'nom' => $request->nom,
             'email' => $request->email,
             'message' => $request->message,
             'quantite' => $request->quantite,
         ]);
-
-        return back()->with('success', 'Votre demande a été envoyée avec succès !');
+         return redirect()->back()->with('success', 'Votre demande a été envoyée ✅');
+       
     }
     public function index()
     {
         $demandes = Demande::with('annonce')->latest()->get();
         return view('admin.demandes.index', compact('demandes'));
     }
+
+  
+    public function demandesAgriculteur()
+    {
+        $demandes = Demande::where('agriculteur_id', Auth::id())->get();
+        return view('agriculteur.demandes', compact('demandes'));
+    }
+
 }

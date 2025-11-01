@@ -13,21 +13,22 @@
         <!--lien de boostrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
-    <h2><marquee><h2><marquee>Bienvenue 👇👇 </marquee></h2></marquee></h2>
 
-    @section('content')
-    <div class="container mx-auto px-4 py-6">
-        <h2 class="text-xl font-bold mb-4">{{ $titre }}</h2>
-        <p class="text-gray-700">{{ $contenu }}</p>
 
-        <a href="{{ route('guide.index') }}"
-           class="inline-block mt-6 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-            ⬅ Retour
-        </a>
+    <body>
+   <h2>📩 Demandes reçues</h2>
+
+@forelse($demandes as $d)
+    <div class="p-3 border rounded mb-2">
+        <p><strong>Annonce :</strong> {{ $d->annonce->titre }}</p>
+        <p><strong>Client :</strong> {{ $d->client->name }} (ID: {{ $d->client_id }})</p>
+        <p><strong>Message :</strong> {{ $d->message }}</p>
+        <p><strong>Quantité :</strong> {{ $d->quantite }}</p>
+        <p><strong>Statut :</strong> {{ $d->statut }}</p>
     </div>
-    @endsection
-  <a href="{{ url('/agriculteur/home') }}" class="btn btn-outline-success mb-4">
-    ⬅️ Retour à l’accueil agriculteur
-</a>
+@empty
+    <p>Aucune demande pour le moment.</p>
+@endforelse
+
     </body>
 </html>

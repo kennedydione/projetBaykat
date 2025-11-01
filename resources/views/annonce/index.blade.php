@@ -16,7 +16,7 @@
 <body>
 <div class="container py-5">
     <h2 class="mb-4 text-center">
-        <marquee>📢 Bienvenue dans les annonces Baykat+ — ce que vous cherchez est sûrement ici 🤣👇👇</marquee>
+        <marquee>📢 Bienvenue dans les annonces Baykat+ — ce que vous cherchez est sûrement ici 👇👇</marquee>
     </h2>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -75,6 +75,12 @@
                             <input type="text" name="nom" class="form-control" placeholder="Votre nom" required>
                         </div>
                         <div class="mb-2">
+                            <input type="hidden" name="annonce_id" value="{{ $annonce->id }}">
+                        </div>
+                        <div class="mb-2">
+                            <input type="hidden" name="agriculteur_id" value="{{ $annonce->user_id }}">
+                        </div>
+                        <div class="mb-2">
                             <input type="email" name="email" class="form-control" placeholder="Votre email" required>
                         </div>
                         <div class="mb-2">
@@ -87,6 +93,8 @@
                         @endif
                         <button type="submit" class="btn btn-outline-primary btn-sm">📩 Faire une demande</button>
                     </form>
+
+                    
                 </div>
             </div>
         </div>

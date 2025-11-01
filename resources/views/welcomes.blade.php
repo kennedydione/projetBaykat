@@ -16,6 +16,7 @@
         body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #fdfaf4;
+            
         }
         .svg-icon {
             width: 50px;
@@ -30,8 +31,10 @@
     <nav class="bg-green-700 text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-6 py-2 flex justify-between items-center">
             <!-- Logo -->
+             <img src="{{ asset('images/b2.png') }}" alt="Riz" class="img-fluid rounded-circle mb-3"
+                 style="width: 120px; height: 40px; object-fit: cover;">
             <a href="{{ route('home') }}" class="text-2xl font-bold tracking-wide hover:text-green-200">
-                🌾 Baykat+
+                 Baykat+
             </a>
 
             <!-- Liens de navigation -->
@@ -41,7 +44,15 @@
                 <a href="{{ route('meteo.index') }}" class="hover:text-green-200">Météo</a>
 
                 @auth
-                <a href="{{ route('dashboard') }}" class="hover:text-green-200">Mon Profil</a>
+                <a href="profile" class="hover:text-green-200">Mon Profil</a>
+               <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-danger">
+                    🔓 Se déconnecter
+                </button>
+                </form>
+
+
                 @else
                 <a href="{{ route('login') }}" class="hover:text-green-200">Connexion</a>
                 <a href="{{ route('register') }}" class="hover:text-green-200">Inscription</a>
@@ -68,6 +79,40 @@
             @endauth
         </div>
     </nav>
+
+    <section class="text-center my-5">
+        <h1 class="fw-bold text-success">🌱 Bienvenue sur Baykat+</h1>
+        <p class="text-muted">Votre plateforme numérique pour une agriculture intelligente, connectée et communautaire.</p>
+    </section>
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+    <div class="col">
+        <a href="/client/home" class="text-decoration-none">
+            <div class="card border-success p-4">
+                <h5 class="text-success fw-bold">👤 Espace Client</h5>
+                <p class="text-muted small">Explorer les produits, envoyer des demandes, contacter un agriculteur.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/agriculteur/home" class="text-decoration-none">
+            <div class="card border-warning p-4">
+                <h5 class="text-warning fw-bold">👨‍🌾 Espace Agriculteur</h5>
+                <p class="text-muted small">Publier des annonces, suivre les cultures, consulter les guides.</p>
+            </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="/admin/home" class="text-decoration-none">
+            <div class="card border-danger p-4">
+                <h5 class="text-danger fw-bold">🛡️ Espace Admin</h5>
+                <p class="text-muted small">Gérer les utilisateurs, modérer les annonces, consulter les statistiques.</p>
+            </div>
+        </a>
+    </div>
+</div>
+
 
 <!-- Hero -->
 <div class="py-16 bg-gray-50">
@@ -114,6 +159,7 @@
             🔍 Voir les annonces
         </a>
     </div>
+    
 </section>
 
 
@@ -145,20 +191,19 @@
         <h2 class="text-3xl font-bold text-green-800 mb-10">🛠️ Nos outils intelligents</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div class="flex flex-col items-center">
-                <img src="{{ asset('images/svg/tractor.svg') }}" class="svg-icon mb-2" alt="Tracteur">
-                <p class="text-green-700 font-semibold">Machiner
-                    ie connectée</p>
+                <img src="{{ asset('images/pub.png') }}" class="svg-icon mb-2" alt="Tracteur">
+                <p class="text-green-700 font-semibold">Annonce publicitaire</p>
             </div>
             <div class="flex flex-col items-center">
-                <img src="{{ asset('images/svg/plant.svg') }}" class="svg-icon mb-2" alt="Plantation">
+                <img src="{{ asset('images/suivi.png') }}" class="svg-icon mb-2" alt="Plantation">
                 <p class="text-green-700 font-semibold">Suivi des cultures</p>
             </div>
             <div class="flex flex-col items-center">
-                <img src="{{ asset('images/svg/cloud.svg') }}" class="svg-icon mb-2" alt="Météo">
+                <img src="{{ asset('images/météo.png') }}" class="svg-icon mb-2" alt="Météo">
                 <p class="text-green-700 font-semibold">Données météo</p>
             </div>
             <div class="flex flex-col items-center">
-                <img src="{{ asset('images/svg/book.svg') }}" class="svg-icon mb-2" alt="Formation">
+                <img src="{{ asset('images/guide.png') }}" class="svg-icon mb-2" alt="Formation">
                 <p class="text-green-700 font-semibold">Guides & acompagnement</p>
             </div>
         </div>
@@ -173,7 +218,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="grid md:grid-cols-2 gap-6 items-center">
-                        <img src="{{ asset('images/arachide.jpg') }}" class="rounded-lg shadow-lg" alt="Arachide">
+                        <img src="{{ asset('images/arachide.png') }}" class="rounded-lg shadow-lg" alt="Arachide">
                         <div>
                             <h3 class="text-xl font-bold text-green-700">Arachide fraîche</h3>
                             <p class="text-gray-600">Disponible à Djilasse — 1 000 FCFA/kg</p>
@@ -212,7 +257,7 @@
     <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8">
         <div>
             <h4 class="font-bold mb-2">🌱 Baykat+</h4>
-            <p>Plateforme pour l’agriculture intelligente et la formation locale.</p>
+            <p>Plateforme pour l’agriculture intelligente et le guide numérique.</p>
         </div>
         <div>
             <h4 class="font-bold mb-2">Liens utiles</h4>
@@ -224,8 +269,8 @@
         </div>
         <div>
             <h4 class="font-bold mb-2">Contact</h4>
-            <p>Email : contact@baykat.sn</p>
-            <p>Téléphone : +221 XX XXX XX XX</p>
+            <p>Email : i.dione5@isepdiamniadio.edu.sn</p>
+            <p>Téléphone : +221 77 190 70 71</p>
         </div>
     </div>
     <div class="text-center mt-6 text-sm text-green-200">

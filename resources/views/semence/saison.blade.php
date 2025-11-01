@@ -13,8 +13,10 @@
         <!--lien de boostrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     </head>
+    
     <h2><marquee><h2><marquee>Bienvenue 👇👇 </marquee></h2></marquee></h2>
     <body>
+        
     <div class="container py-4">
         <h2 class="text-center mb-4">
             🌾 Semences pour la saison {{ ucfirst($saison) }}
@@ -51,6 +53,8 @@
             </div>
         </form>
     </div>
-
+  <a href="{{ url('/agriculteur/home') }}" class="btn btn-outline-success mb-4">
+    ⬅️ Retour à l’accueil agriculteur
+</a>
     </body>
 </html>
