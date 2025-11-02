@@ -1,60 +1,101 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ config('app.name', 'Baykat+') }}</title>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .left-box {
+      background: linear-gradient(rgba(0, 77, 64, 0.7), rgba(0, 77, 64, 0.7)), 
+                  url("/images/b5.png") center center / cover no-repeat;
+      min-height: 450px;
+    }
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+    .form-control {
+      height: 45px;
+    }
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+    .btn-primary {
+      background: #004d40;
+      border: none;
+      height: 45px;
+    }
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+    .btn-primary:hover {
+      background: #003b32;
+    }
+  </style>
+</head>
 
+<body>
+ <form method="POST" action="{{ route('register') }}">
+    @csrf
+   <div class="container py-5">
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-8 col-md-10 col-sm-12 bg-white shadow rounded overflow-hidden">
+        <div class="row">
+            
+            <!-- IMAGE GAUCHE -->
+            <div class="col-md-6 left-box"></div>
+        <!-- FORMULAIRE DROIT -->
+        <div class="col-md-6 p-4">
+          <h4 class="text-center mb-4">Créer un compte</h4>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+          <form>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <div class="mb-3">
+              <label class="form-label">Nom complet</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-        <div class="mt-4">
-            <x-input-label for="role">Rôle</x-input-label>
-            <select name="role" id="role" class="form-control" required>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Mot de passe</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Confirmer mot de passe</label>
+              <input type="password"  name="password_confirmation" class="form-control" required>
+            </div>
+
+            <!-- RÔLE -->
+            <div class="mb-3">
+              <label class="form-label">Choisissez votre rôle</label>
+              <select name="role" class="form-select" required>
+                <option selected disabled>-- Sélectionner --</option>
                 <option value="agriculteur">Agriculteur</option>
                 <option value="client">Client</option>
-            </select>
+              </select>
+            </div>
+
+           <button class="btn btn-primary w-100">Créer un compte</button>
+
+
+          </form>
+
+          <p class="text-center mt-3">
+            Déjà inscrit ? <a href="login">Se connecter</a>
+          </p>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Déjà inscrit?') }}
-            </a>
+      </div>
+    </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('inscription') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+  </div>
+</div>
+</form>
+</body>
+</html>

@@ -55,13 +55,29 @@
 
                 <div class="mb-3">
                 <label class="form-label">Email ou Téléphone</label>
-                <input type="text" class="form-control" placeholder="Entrez vos identifiants" required>
+                <input type="text" name="email" class="form-control" placeholder="Entrez vos identifiants" required>
                 </div>
 
                 <div class="mb-3">
                 <label class="form-label">Mot de passe</label>
-                <input type="password" class="form-control" placeholder="Votre mot de passe" required>
+                <input type="password" name="password" class="form-control" placeholder="Votre mot de passe" required>
                 </div>
+
+                 <!-- Remember Me -->
+        <div class="mb-3">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Se souvenir de moi') }}</span>
+            </label>
+        </div>
+
+        <div class="mb-3">
+            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+                @if (Route::has('password.request'))
+                    <a class="underline hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                        {{ __('Mot de passe oublié ?') }}
+                    </a>
+                @endif
 
                 <button class="btn btn-primary w-100">Connexion</button>
 
