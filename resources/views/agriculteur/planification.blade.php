@@ -16,67 +16,85 @@
 
 
 <body>
-<div class="container mx-auto px-4 py-6">
+<div class="container py-5">
 
-    <h1 class="text-2xl font-bold mb-6">Planifier mes cultures</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">🗓️ Planifier mes cultures</h1>
+        <a href="{{ route('agriculteur.calendrier') }}" class="btn btn-outline-success">
+            Voir mes planifications
+        </a>
+    </div>
 
     @if(session('success'))
-    <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 
-    <form action="{{ route('agriculteur.planification.store') }}" method="POST" class="space-y-4">
-        @csrf
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="{{ route('agriculteur.planification.store') }}" method="POST">
+                @csrf
 
-        <!-- Saison -->
-        <div>
-            <label class="block font-semibold mb-2">Choisir la saison</label>
-            <select name="saison" class="w-full border rounded p-2">
-                <option value="">-- Sélectionner --</option>
-                <option value="saison seche">🌞 Saison sèche</option>
-                <option value="saison des pluies">🌧️ Saison des pluies</option>
-            </select>
-        </div>
+                <div class="row g-4">
+                    <!-- Saison -->
+                    <div class="col-md-6">
+                        <label class="form-label">Choisir la saison</label>
+                        <select name="saison" class="form-select">
+                            <option value="">-- Sélectionner --</option>
+                            <option value="saison seche">🌞 Saison sèche</option>
+                            <option value="saison des pluies">🌧️ Saison des pluies</option>
+                        </select>
+                    </div>
 
-        <!-- Cultures -->
-        <div>
-            <label class="block font-semibold mb-2">Choisir les cultures</label>
-            <div class="grid grid-cols-2 gap-2">
-                @foreach($cultures as $culture)
-                <label class="flex items-center space-x-2 border p-2 rounded">
-                    <input type="checkbox" name="cultures[]" value="{{ $culture }}">
-                    <span>{{ $culture }}</span>
-                </label>
-                @endforeach
-            </div>
-        </div>
+                    <!-- Superficie -->
+                    <div class="col-md-6">
+                        <label class="form-label">Superficie (ha)</label>
+                        <input type="number" name="superficie" step="0.01" class="form-control" placeholder="Ex: 2.5">
+                    </div>
 
-        <!-- Superficie -->
-        <div>
-            <label class="block font-semibold mb-2">Superficie (ha)</label>
-            <input type="number" name="superficie" step="0.01" class="w-full border rounded p-2">
-        </div>
+                    <!-- Cultures -->
+                    <div class="col-12">
+                        <label class="form-label">Choisir les cultures</label>
+                        <div class="row row-cols-2 row-cols-md-3 g-2">
+                            @foreach($cultures as $culture)
+                                <div class="col">
+                                    <div class="form-check border rounded p-2">
+                                        <input class="form-check-input" type="checkbox" name="cultures[]" value="{{ $culture }}" id="c-{{ $loop->index }}">
+                                        <label class="form-check-label" for="c-{{ $loop->index }}">{{ $culture }}</label>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
 
-        <!-- Type de sol -->
-        <div>
-            <label class="block font-semibold mb-2">Type de sol</label>
-            <input type="text" name="sol" placeholder="Ex: sablonneux, argileux..." class="w-full border rounded p-2">
-        </div>
+                    <!-- Type de sol -->
+                    <div class="col-md-6">
+                        <label class="form-label">Type de sol</label>
+                        <input type="text" name="sol" class="form-control" placeholder="Ex: sablonneux, argileux...">
+                    </div>
 
-        <!-- Date de semis -->
-        <div>
-            <label class="block font-semibold mb-2">Date de semis prévue</label>
-            <input type="date" name="date_semis" class="w-full border rounded p-2">
-        </div>
+                    <!-- Date de semis -->
+                    <div class="col-md-6">
+                        <label class="form-label">Date de semis prévue</label>
+                        <input type="date" name="date_semis" class="form-control">
+                    </div>
+                </div>
 
-        <!-- Bouton -->
-        <div>
-            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
-                Valider ma planification
-            </button>
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-success px-4">Valider ma planification</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+
 </div>
 </body>
 </html>

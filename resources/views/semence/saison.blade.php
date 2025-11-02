@@ -31,7 +31,19 @@
                 <div class="col-md-4 text-center">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body">
-                            <img src="{{ asset('images/riz.jpg') }}" alt="Riz"
+                            @php(
+                                $images = [
+                                    'Riz' => 'images/riz.jpg',
+                                    'Arachide' => 'images/arachide.png',
+                                    'Maïs' => 'images/mais.jpg',
+                                    'Mais' => 'images/mais.jpg',
+                                    'Mil' => 'images/mil.jpg',
+                                    'Tomate' => 'images/tomate.jpg',
+                                    'Oignon' => 'images/oignon.jpg',
+                                ]
+                            )
+                            @php($imgPath = asset($images[$semence['nom']] ?? 'images/b1.png'))
+                            <img src="{{ $imgPath }}" alt="{{ $semence['nom'] }}"
 
                             class="img-fluid rounded-circle mb-3"
                                  style="width: 120px; height: 120px; object-fit: cover;">

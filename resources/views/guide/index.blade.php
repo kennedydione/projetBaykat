@@ -54,6 +54,14 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="/guide">Guide</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+        @auth
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+                <li class="nav-item"><a class="nav-link" href="{{ route('client.demandes') }}">Mes demandes</a></li>
+            @endif
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+                <li class="nav-item"><a class="nav-link" href="{{ route('agriculteur.demandes') }}">Demandes reçues</a></li>
+            @endif
+        @endauth
       </ul>
     </div>
   </div>
@@ -73,11 +81,11 @@
 
         @php
             $guides = [
-                ['link' => 'agriculteur/semence', 'color' => 'success', 'icon' => '🌱', 'title' => 'Choix des semences', 'desc' => 'Découvrez les semences adaptées à votre sol et climat.'],
-                ['link' => 'agrilcuteur/semis', 'color' => 'primary', 'icon' => '🧪', 'title' => 'Techniques de semis', 'desc' => 'Maîtrisez les méthodes de semis pour une germination optimale.'],
-                ['link' => 'agriculteur/entretien', 'color' => 'warning', 'icon' => '🌿', 'title' => 'Entretien des cultures', 'desc' => 'Arrosage, désherbage et soins pour des cultures saines.'],
-                ['link' => 'agriculteur/lutte-maladies', 'color' => 'danger', 'icon' => '🛡️', 'title' => 'Lutte contre les maladies', 'desc' => 'Prévention et traitement des maladies agricoles.'],
-                ['link' => 'agriculteur/planification', 'color' => 'info', 'icon' => '📅', 'title' => 'Planifier vos cultures', 'desc' => 'Organisez votre saison agricole avec efficacité.'],
+                ['link' => route('semence.index'), 'color' => 'success', 'icon' => '🌱', 'title' => 'Choix des semences', 'desc' => 'Découvrez les semences adaptées à votre sol et climat.'],
+                ['link' => route('semence.semis'), 'color' => 'primary', 'icon' => '🧪', 'title' => 'Techniques de semis', 'desc' => 'Maîtrisez les méthodes de semis pour une germination optimale.'],
+                ['link' => route('semence.entretien'), 'color' => 'warning', 'icon' => '🌿', 'title' => 'Entretien des cultures', 'desc' => 'Arrosage, désherbage et soins pour des cultures saines.'],
+                ['link' => route('semence.lutte-maladies'), 'color' => 'danger', 'icon' => '🛡️', 'title' => 'Lutte contre les maladies', 'desc' => 'Prévention et traitement des maladies agricoles.'],
+                ['link' => route('agriculteur.planification'), 'color' => 'info', 'icon' => '📅', 'title' => 'Planifier vos cultures', 'desc' => 'Organisez votre saison agricole avec efficacité.'],
             ];
         @endphp
 

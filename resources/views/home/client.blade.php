@@ -49,6 +49,15 @@
                 </div>
             </a>
         </div>
+
+        <div class="col">
+            <a href="{{ route('client.demandes') }}" class="text-decoration-none">
+                <div class="card border-warning text-center p-4">
+                    <h5 class="text-warning fw-bold">📩 Mes demandes</h5>
+                    <p class="text-muted small">Voir l'historique et le statut de mes demandes.</p>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 </body>

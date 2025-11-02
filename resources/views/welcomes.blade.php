@@ -44,6 +44,12 @@
                 <a href="{{ route('meteo.index') }}" class="hover:text-green-200">Météo</a>
 
                 @auth
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+                <a href="{{ route('client.demandes') }}" class="hover:text-green-200">Mes demandes</a>
+                @endif
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+                <a href="{{ route('agriculteur.demandes') }}" class="hover:text-green-200">Demandes reçues</a>
+                @endif
                 <a href="profile" class="hover:text-green-200">Mon Profil</a>
                <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -73,12 +79,30 @@
 
             @auth
             <a href="{{ route('dashboard') }}" class="block py-2">Mon Profil</a>
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+            <a href="{{ route('client.demandes') }}" class="block py-2">Mes demandes</a>
+            @endif
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+            <a href="{{ route('agriculteur.demandes') }}" class="block py-2">Demandes reçues</a>
+            @endif
             @else
             <a href="{{ route('login') }}" class="block py-2">Connexion</a>
             <a href="{{ route('register') }}" class="block py-2">Inscription</a>
             @endauth
         </div>
     </nav>
+
+    <!-- Bannière alerte météo -->
+    @php($now = \Carbon\Carbon::now())
+    <div class="container mt-3">
+        <div class="alert alert-warning d-flex justify-content-between align-items-center" role="alert">
+            <div>
+                <strong>🌦️ Alerte météo:</strong>
+                Consultez les prévisions locales avant vos opérations de semis et traitements.
+            </div>
+            <a href="{{ route('meteo.index') }}" class="btn btn-sm btn-outline-dark">Voir la météo</a>
+        </div>
+    </div>
 
     <section class="text-center my-5">
         <h1 class="fw-bold text-success">🌱 Bienvenue sur Baykat+</h1>
@@ -131,80 +155,83 @@
     </div>
 </div>
 
-
 <!-- Aperçu plateforme -->
 <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-        <img src="{{ asset('images/b1.png') }}" alt="Dashboard agricole" class="rounded-lg shadow-lg">
-        <div>
-            <h2 class="text-2xl font-bold mb-4 text-green-800">Une plateforme agricole connectée</h2>
-            <p class="text-gray-700 mb-6">
-                Notre plateforme rassemble toutes les informations sur vos parcelles :
-                météo locale, type de sol, suivi des semis et indicateurs de santé des cultures.
-            </p>
-            <a href="{{ route('login') }}" class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
-                Découvrir plus →
-            </a>
+    <div class="container mx-auto px-6">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6 order-md-2">
+                <img src="{{ asset('images/b1.png') }}" alt="Dashboard agricole" class="rounded-3 shadow-sm w-100">
+            </div>
+            <div class="col-md-6 order-md-1">
+                <h2 class="h3 fw-bold mb-3 text-success">Une plateforme agricole connectée</h2>
+                <p class="text-muted">Centralisez météo locale, type de sol, suivi des semis et indicateurs clés pour optimiser vos décisions au quotidien.</p>
+                <ul class="list-unstyled text-muted mb-4">
+                    <li>✔️ Alerte météo et rappels de semis</li>
+                    <li>✔️ Gestion d’annonces et demandes</li>
+                    <li>✔️ Guides et bonnes pratiques</li>
+                </ul>
+                <a href="{{ route('login') }}" class="btn btn-success">Découvrir plus →</a>
+            </div>
         </div>
-
-           <section class="d-flex justify-content-center align-items-center vh-100">
-    <div class="container px-4 text-center">
-        <h2 class="text-3xl fw-bold text-success mb-4">📢 Toutes les annonces agricoles</h2>
-        <p class="text-muted mb-4">
-            Produits disponibles, événements à venir, projets en cours…<br>
-            Retrouvez toutes les annonces publiées par la communauté Baykat+.
-        </p>
-        <a href="{{ route('annonce.index') }}"
-           class="btn btn-success px-5 py-3 rounded-pill shadow-sm">
-            🔍 Voir les annonces
-        </a>
     </div>
-    
 </section>
 
-
-
+<!-- Bloc annonces -->
+<section class="py-16 bg-white">
+    <div class="container px-4 text-center">
+        <h2 class="h3 fw-bold text-success mb-3">📢 Toutes les annonces agricoles</h2>
+        <p class="text-muted mb-4">Produits disponibles, événements à venir, projets en cours… Retrouvez toutes les annonces publiées par la communauté Baykat+.</p>
+        <a href="{{ route('annonce.index') }}" class="btn btn-success px-5 py-3 rounded-pill shadow-sm">🔍 Voir les annonces</a>
     </div>
 </section>
 
 <!-- Suivi intelligent -->
 <section class="py-16 bg-white">
-    <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-        <div>
-            <h2 class="text-2xl font-bold mb-4 text-green-800">Suivi intelligent des cultures</h2>
-            <p class="text-gray-700 mb-6">
-                Découvrez les tendances, les corrélations et les risques liés à l’irrigation,
-                la fertilisation et la protection des plantes pour optimiser votre récolte.
-            </p>
-            <a href="{{ route('meteo.index') }}"
-               class="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
-                Voir les données météo
-            </a>
+    <div class="container mx-auto px-6">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6">
+                <h2 class="h3 fw-bold mb-3 text-success">Suivi intelligent des cultures</h2>
+                <p class="text-muted">Tendances, corrélations et risques liés à l’irrigation, la fertilisation et la protection des plantes pour optimiser votre récolte.</p>
+                <div class="d-flex gap-2 mt-3">
+                    <a href="{{ route('meteo.index') }}" class="btn btn-outline-primary">🌦️ Voir la météo</a>
+                    <a href="{{ route('agriculteur.calendrier') }}" class="btn btn-outline-success">📅 Mon calendrier</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset('images/meteo1.png') }}" alt="image agricole" class="rounded-3 shadow-sm w-100">
+            </div>
         </div>
-        <img src="{{ asset('images/meteo1.png') }}" alt="image  agricole" class="rounded-lg shadow-lg">
     </div>
-</section>
+    </section>
 
 <!-- Nos outils -->
 <section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-3xl font-bold text-green-800 mb-10">🛠️ Nos outils intelligents</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/pub.png') }}" class="svg-icon mb-2" alt="Tracteur">
-                <p class="text-green-700 font-semibold">Annonce publicitaire</p>
+    <div class="container">
+        <h2 class="h3 fw-bold text-success text-center mb-4">🛠️ Nos outils intelligents</h2>
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm p-3">
+                    <img src="{{ asset('images/pub.png') }}" class="svg-icon mb-2 mx-auto" alt="Annonce">
+                    <p class="text-success fw-semibold mb-0">Annonce publicitaire</p>
+                </div>
             </div>
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/suivi.png') }}" class="svg-icon mb-2" alt="Plantation">
-                <p class="text-green-700 font-semibold">Suivi des cultures</p>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm p-3">
+                    <img src="{{ asset('images/suivi.png') }}" class="svg-icon mb-2 mx-auto" alt="Suivi">
+                    <p class="text-success fw-semibold mb-0">Suivi des cultures</p>
+                </div>
             </div>
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/météo.png') }}" class="svg-icon mb-2" alt="Météo">
-                <p class="text-green-700 font-semibold">Données météo</p>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm p-3">
+                    <img src="{{ asset('images/météo.png') }}" class="svg-icon mb-2 mx-auto" alt="Météo">
+                    <p class="text-success fw-semibold mb-0">Données météo</p>
+                </div>
             </div>
-            <div class="flex flex-col items-center">
-                <img src="{{ asset('images/guide.png') }}" class="svg-icon mb-2" alt="Formation">
-                <p class="text-green-700 font-semibold">Guides & acompagnement</p>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 shadow-sm p-3">
+                    <img src="{{ asset('images/guide.png') }}" class="svg-icon mb-2 mx-auto" alt="Guides">
+                    <p class="text-success fw-semibold mb-0">Guides & accompagnement</p>
+                </div>
             </div>
         </div>
     </div>

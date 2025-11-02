@@ -12,6 +12,8 @@
 
         <!--lien de boostrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <!-- Tailwind pour la navbar (comme welcomes.blade) -->
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
    <body>
     <!-- ✅ NAVBAR collante -->
@@ -31,6 +33,12 @@
                 <a href="{{ route('meteo.index') }}" class="hover:text-green-200">Météo</a>
 
                 @auth
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+                <a href="{{ route('client.demandes') }}" class="hover:text-green-200">Mes demandes</a>
+                @endif
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+                <a href="{{ route('agriculteur.demandes') }}" class="hover:text-green-200">Demandes reçues</a>
+                @endif
                 <a href="profile" class="hover:text-green-200">Mon Profil</a>
                <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -60,6 +68,12 @@
 
             @auth
             <a href="{{ route('dashboard') }}" class="block py-2">Mon Profil</a>
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+            <a href="{{ route('client.demandes') }}" class="block py-2">Mes demandes</a>
+            @endif
+            @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+            <a href="{{ route('agriculteur.demandes') }}" class="block py-2">Demandes reçues</a>
+            @endif
             @else
             <a href="{{ route('login') }}" class="block py-2">Connexion</a>
             <a href="{{ route('register') }}" class="block py-2">Inscription</a>

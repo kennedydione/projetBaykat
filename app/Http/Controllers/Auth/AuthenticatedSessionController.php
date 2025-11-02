@@ -18,6 +18,14 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    public function connection(): View
+    {
+        return view('auth.connection');
+    }
+    public function inscription(): View
+    {
+        return view('auth.inscription');
+    }
 
     /**
      * Handle an incoming authentication request.

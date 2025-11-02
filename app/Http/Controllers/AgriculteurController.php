@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Planification;
-use App\Http\Controllers\Auth;
+use App\Models\Planification;
+use Illuminate\Support\Facades\Auth;
 class AgriculteurController extends Controller
 {
     public function planification()
@@ -28,7 +28,42 @@ class AgriculteurController extends Controller
 
         Planification::create($data);
 
-        return back()->with('success', 'Votre planification a été enregistrée avec succès !');
+        return redirect()->route('agriculteur.calendrier')
+            ->with('success', 'Votre planification a été enregistrée et ajoutée au calendrier.');
+    }
+
+    public function editPlanification(Planification $planification)
+    {
+        if ($planification->user_id !== Auth::id()) {
+            abort(403);
+        }
+        $cultures = ['Mil', 'Maïs', 'Riz', 'Arachide', 'Tomate', 'Oignon'];
+        return view('agriculteur.planification-edit', compact('planification', 'cultures'));
+    }
+
+    public function updatePlanification(Request $request, Planification $planification)
+    {
+        if ($planification->user_id !== Auth::id()) {
+            abort(403);
+        }
+        $data = $request->validate([
+            'saison' => 'required|string',
+            'cultures' => 'required|array',
+            'superficie' => 'nullable|numeric',
+            'sol' => 'nullable|string',
+            'date_semis' => 'nullable|date',
+        ]);
+        $planification->update($data);
+        return redirect()->route('agriculteur.calendrier')->with('success', 'Planification mise à jour.');
+    }
+
+    public function destroyPlanification(Planification $planification)
+    {
+        if ($planification->user_id !== Auth::id()) {
+            abort(403);
+        }
+        $planification->delete();
+        return back()->with('success', 'Planification supprimée.');
     }
 
 }

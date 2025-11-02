@@ -18,13 +18,37 @@
     <body>
    <h2>📩 Demandes reçues</h2>
 
+   @if(session('success'))
+       <div class="alert alert-success">{{ session('success') }}</div>
+   @endif
+   @if(session('error'))
+       <div class="alert alert-danger">{{ session('error') }}</div>
+   @endif
+
 @forelse($demandes as $d)
-    <div class="p-3 border rounded mb-2">
-        <p><strong>Annonce :</strong> {{ $d->annonce->titre }}</p>
-        <p><strong>Client :</strong> {{ $d->client->name }} (ID: {{ $d->client_id }})</p>
-        <p><strong>Message :</strong> {{ $d->message }}</p>
-        <p><strong>Quantité :</strong> {{ $d->quantite }}</p>
-        <p><strong>Statut :</strong> {{ $d->statut }}</p>
+    <div class="p-3 border rounded mb-2 d-flex justify-content-between align-items-start">
+        <div>
+            <p class="mb-1"><strong>Annonce :</strong> {{ $d->annonce->titre }}</p>
+            <p class="mb-1"><strong>Client :</strong> {{ $d->client->name }} (ID: {{ $d->client_id }})</p>
+            <p class="mb-1"><strong>Message :</strong> {{ $d->message }}</p>
+            <p class="mb-1"><strong>Quantité :</strong> {{ $d->quantite ?? '-' }}</p>
+            @php($isPending = ($d->statut === 'en attente' || empty($d->statut)))
+            <p class="mb-0"><strong>Statut :</strong>
+                <span class="badge {{ $d->statut === 'acceptée' ? 'bg-success' : ($d->statut === 'refusée' ? 'bg-danger' : ($d->statut === 'annulée' ? 'bg-secondary' : 'bg-warning text-dark')) }}">
+                    {{ ucfirst($d->statut ?? 'en attente') }}
+                </span>
+            </p>
+        </div>
+        <div>
+            <form method="POST" action="{{ route('agriculteur.demandes.accepter', $d) }}" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-success" {{ $isPending ? '' : 'disabled' }}>Accepter</button>
+            </form>
+            <form method="POST" action="{{ route('agriculteur.demandes.refuser', $d) }}" class="d-inline ms-1">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-danger" {{ $isPending ? '' : 'disabled' }}>Refuser</button>
+            </form>
+        </div>
     </div>
 @empty
     <p>Aucune demande pour le moment.</p>

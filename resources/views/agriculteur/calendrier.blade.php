@@ -16,35 +16,91 @@
 
 
     <body>
-    <div class="container mx-auto px-4 py-6">
+    <div class="container py-5">
 
-        <h1 class="text-2xl font-bold mb-6">📅 Calendrier Agricole</h1>
-
-        @if($plans->count() > 0)
-        <div class="grid gap-4">
-            @foreach($plans as $plan)
-            <div class="bg-white p-4 rounded-lg shadow">
-                <h2 class="text-lg font-semibold text-green-700">{{ implode(', ', $plan->cultures) }}</h2>
-                <p><strong>Saison :</strong> {{ ucfirst($plan->saison) }}</p>
-                <p><strong>Date de semis :</strong>
-                    {{ $plan->date_semis ? $plan->date_semis->format('d/m/Y') : 'Non défini' }}
-                </p>
-                <p><strong>Superficie :</strong> {{ $plan->superficie ?? '-' }} ha</p>
-                <p><strong>Type de sol :</strong> {{ $plan->sol ?? '-' }}</p>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">📅 Calendrier Agricole</h1>
+            <div class="d-flex gap-2">
+                <a href="{{ route('agriculteur.planification') }}" class="btn btn-outline-success">Planifier une culture</a>
             </div>
-            @endforeach
         </div>
-        @else
-        <p class="text-gray-600">Aucune planification enregistrée.</p>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        <!-- Bouton retour -->
-        <div class="mt-6">
-            <a href="{{ route('agriculteur.planification') }}"
-               class="inline-block px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-                ⬅ Retour à mes planifications
-            </a>
-        </div>
+        @if($plans->count() > 0)
+            <div class="row g-3">
+                @foreach($plans as $plan)
+                    <div class="col-12">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h5 class="card-title text-success mb-1">{{ is_array($plan->cultures) ? implode(', ', $plan->cultures) : $plan->cultures }}</h5>
+                                        @php(
+                                            $badgeClass = strtolower($plan->saison) === 'saison des pluies' ? 'bg-primary' : 'bg-warning text-dark'
+                                        )
+                                        <span class="badge {{ $badgeClass }}">{{ ucfirst($plan->saison) }}</span>
+                                    </div>
+                                    <div class="ms-2 d-flex gap-2">
+                                        <a href="{{ route('agriculteur.planification.edit', $plan) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                        <form action="{{ route('agriculteur.planification.destroy', $plan) }}" method="POST" onsubmit="return confirm('Supprimer cette planification ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @php($date = $plan->date_semis)
+                                @php($today = \Carbon\Carbon::today())
+                                @php($alertClass = null)
+                                @php($alertText = null)
+                                @if($date)
+                                    @if($date->isPast() && !$date->isToday())
+                                        @php($alertClass = 'alert-danger')
+                                        @php($alertText = '⚠️ Semis en retard de ' . $date->diffInDays($today) . ' j')
+                                    @elseif($date->isToday())
+                                        @php($alertClass = 'alert-warning')
+                                        @php($alertText = '⏰ Semis prévu aujourd\'hui')
+                                    @elseif($today->diffInDays($date) <= 7)
+                                        @php($alertClass = 'alert-warning')
+                                        @php($alertText = '🔔 Semis dans ' . $today->diffInDays($date) . ' j')
+                                    @endif
+                                @endif
+
+                                @if($alertClass && $alertText)
+                                    <div class="alert {{ $alertClass }} py-2 px-3 mb-3">
+                                        {{ $alertText }}
+                                    </div>
+                                @endif
+
+                                <div class="row">
+                                    <div class="col-md-3 mb-2">
+                                        <div><strong>Saison :</strong> {{ ucfirst($plan->saison) }}</div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div><strong>Date de semis :</strong> {{ $plan->date_semis ? $plan->date_semis->format('d/m/Y') : 'Non défini' }}</div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div><strong>Superficie :</strong> {{ $plan->superficie ?? '-' }} ha</div>
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <div><strong>Type de sol :</strong> {{ $plan->sol ?? '-' }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="mt-3">
+                {{ $plans->links() }}
+            </div>
+        @else
+            <div class="alert alert-info">Aucune planification enregistrée pour le moment.</div>
+            <a href="{{ route('agriculteur.planification') }}" class="btn btn-success">Commencer une planification</a>
+        @endif
     </div>
 
     </body>

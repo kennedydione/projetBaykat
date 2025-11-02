@@ -16,9 +16,9 @@ class Client
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user() && Auth::user()->role=='client') {
+        if (Auth::check() && Auth::user()->role === 'client') {
             return $next($request);
         }
-        return redirect('login');
+        abort(403, 'Accès interdit');
     }
 }

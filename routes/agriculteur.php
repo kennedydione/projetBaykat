@@ -25,14 +25,14 @@ Route::middleware(['auth','agriculteur'])->group( function() {
         // pour voir les demende faites par les utilisateur...
         Route::get('/admin/demandes', [DemandeController::class, 'index'])->name('demande.index');
         
-        Route::get('/agriculteur/semence', [SemenceController::class, 'index'])->name('semence.index');
+        Route::get('/semence', [SemenceController::class, 'index'])->name('semence.index');
 
 
 Route::get('/semence/{saison}', [SemenceController::class, 'showBySaison'])->name('semence.saison');
 Route::post('/semence/valider', [SemenceController::class, 'valider'])->name('semence.valider');
 
 //pour la tecnique de semi
-Route::get('/agriculteur/semis', [SemenceController::class, 'semis'])->name('semence.semis');
+Route::get('/semis', [SemenceController::class, 'semis'])->name('semence.semis');
 
 Route::get('/semis/direct', [SemisController::class, 'direct'])->name('semis.direct');
 Route::get('/semis/ligne', [SemisController::class, 'ligne'])->name('semis.ligne');
@@ -40,16 +40,24 @@ Route::get('/semis/pepiniere', [SemisController::class, 'pepiniere'])->name('sem
 
 
 //pour l'entretien des cultures
-Route::get('/agriculteur/entretien', [SemenceController::class, 'entretien'])->name('semence.entretien');
+Route::get('/entretien', [SemenceController::class, 'entretien'])->name('semence.entretien');
 //la lutte contre les maladies
-Route::get('/agriculteur/lutte-maladies', [SemenceController::class, 'lutteMaladies'])->name('semence.lutte-maladies');
+Route::get('/lutte-maladies', [SemenceController::class, 'lutteMaladies'])->name('semence.lutte-maladies');
 
 //pour la planification des cultures
-Route::get('/agriculteur/planification', [AgriculteurController::class, 'planification'])
+Route::get('/planification', [AgriculteurController::class, 'planification'])
     ->name('agriculteur.planification');
 
-Route::post('/agriculteur/planification', [AgriculteurController::class, 'storePlanification'])
+Route::post('/planification', [AgriculteurController::class, 'storePlanification'])
     ->name('agriculteur.planification.store');
+
+// Edition / suppression de planification
+Route::get('/planification/{planification}/edit', [AgriculteurController::class, 'editPlanification'])
+    ->name('agriculteur.planification.edit');
+Route::put('/planification/{planification}', [AgriculteurController::class, 'updatePlanification'])
+    ->name('agriculteur.planification.update');
+Route::delete('/planification/{planification}', [AgriculteurController::class, 'destroyPlanification'])
+    ->name('agriculteur.planification.destroy');
 
 
     }

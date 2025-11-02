@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Tableau de bord') }}
                     </x-nav-link>
+                    @auth
+                        @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+                            <x-nav-link :href="route('client.demandes')" :active="request()->routeIs('client.demandes')">
+                                {{ __('Mes demandes') }}
+                            </x-nav-link>
+                        @endif
+                        @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+                            <x-nav-link :href="route('agriculteur.demandes')" :active="request()->routeIs('agriculteur.demandes')">
+                                {{ __('Demandes reçues') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -70,6 +82,18 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Tableau de bord') }}
             </x-responsive-nav-link>
+            @auth
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'client')
+                    <x-responsive-nav-link :href="route('client.demandes')" :active="request()->routeIs('client.demandes')">
+                        {{ __('Mes demandes') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if(Auth::user() && isset(Auth::user()->role) && Auth::user()->role === 'agriculteur')
+                    <x-responsive-nav-link :href="route('agriculteur.demandes')" :active="request()->routeIs('agriculteur.demandes')">
+                        {{ __('Demandes reçues') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         <!-- Responsive Settings Options -->

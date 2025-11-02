@@ -51,10 +51,10 @@
             </a>
         </div>
         <div class="col">
-            <a href="/admin/demandes" class="text-decoration-none">
+            <a href="/agriculteur/demandes" class="text-decoration-none">
                 <div class="card border-info text-center p-4">
-                    <h5 class="text-info fw-bold"> gerer les demandees</h5>
-                    <p class="text-muted small">superviser tous les dememde faites par les utilisateur.</p>
+                    <h5 class="text-info fw-bold"> gerer mes demandees</h5>
+                    <p class="text-muted small">voir les dememde faites par les utilisateur.</p>
                 </div>
             </a>
         </div>
