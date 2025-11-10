@@ -12,10 +12,39 @@
 
         <!--lien de boostrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <!-- Bootstrap Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <style>
+            .btn-retour {
+                background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+                border: none;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 25px;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+            }
+            .btn-retour:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+                background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+                color: white;
+            }
+        </style>
     </head>
 
 
     <body>
+    <div class="container py-4">
+        <!-- Bouton de retour -->
+        <div class="mb-4">
+            <a href="/agriculteur/home" class="btn btn-retour">
+                <i class="bi bi-arrow-left-circle me-2"></i>Retour à l'accueil agriculteur
+            </a>
+        </div>
    <h2>📩 Demandes reçues</h2>
 
    @if(session('success'))
@@ -53,6 +82,6 @@
 @empty
     <p>Aucune demande pour le moment.</p>
 @endforelse
-
+    </div>
     </body>
 </html>

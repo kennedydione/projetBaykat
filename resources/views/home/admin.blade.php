@@ -79,7 +79,7 @@
         <div class="col">
             <a href="/admin/stats" class="text-decoration-none">
                 <div class="card border-0 shadow-sm text-center p-4 h-100">
-                    <h5 class="text-success fw-bold">📊 Statistiques globales</h5>
+                    <h5 class="text-success fw-bold">📊 Superviser les activités</h5>
                     <p class="text-muted small mb-0">Suivez les performances et les données d’utilisation.</p>
                 </div>
             </a>
@@ -97,7 +97,7 @@
         <div class="col">
             <a href="/admin/annonces" class="text-decoration-none">
                 <div class="card border-0 shadow-sm text-center p-4 h-100">
-                    <h5 class="text-success fw-bold">📢 Toutes les annonces</h5>
+                    <h5 class="text-success fw-bold">📢 Modérer les annonces</h5>
                     <p class="text-muted small mb-0">Consultez et modérez les annonces publiées.</p>
                 </div>
             </a>
@@ -106,7 +106,7 @@
         <div class="col">
             <a href="/admin/demandes" class="text-decoration-none">
                 <div class="card border-0 shadow-sm text-center p-4 h-100">
-                    <h5 class="text-warning fw-bold">📥 Demandes reçues</h5>
+                    <h5 class="text-warning fw-bold">📥 Gérer les demandes</h5>
                     <p class="text-muted small mb-0">Consultez toutes les demandes envoyées par les utilisateurs.</p>
                 </div>
             </a>

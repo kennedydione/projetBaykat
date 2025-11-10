@@ -71,6 +71,11 @@ Route::get('/calendrier', function () {
     return redirect()->route('agriculteur.calendrier');
 })->middleware(['auth', 'agriculteur'])->name('calendrier');
 
+// Redirection pratique: /guide -> /agriculteur/guide (évite 404 si l'URL courte est utilisée)
+Route::get('/guide', function () {
+    return redirect()->route('guide.index');
+})->middleware(['auth', 'agriculteur'])->name('guide');
+
 // Suivi des cultures
 Route::get('/suivi', function () {
     return view('suivi.index');
@@ -113,13 +118,23 @@ Route::get('/dashboard', function () {
 
 Route::get('rotation/', function () {
     return view('lutte.rotation');
-})->name('lutte.rotation');
+})->middleware(['auth', 'agriculteur'])->name('lutte.rotation');
 Route::get('resistance/', function () {
     return view('lutte.resistance');
-})->name('lutte.resistance');
+})->middleware(['auth', 'agriculteur'])->name('lutte.resistance');
 Route::get('bioc/', function () {
     return view('lutte.bioc');
-})->name('lutte.bioc');
+})->middleware(['auth', 'agriculteur'])->name('lutte.bioc');
+
+Route::get('binage/', function () {
+    return view('entretien.binage');
+})->middleware(['auth', 'agriculteur'])->name('entretien.binage');
+Route::get('sarclage/', function () {
+    return view('entretien.sarclage');
+})->middleware(['auth', 'agriculteur'])->name('entretien.sarclage');
+Route::get('irrigation/', function () {
+    return view('entretien.irrigation');
+})->middleware(['auth', 'agriculteur'])->name('entretien.irrigation');
 
 
 Route::middleware('auth')->group(function () {

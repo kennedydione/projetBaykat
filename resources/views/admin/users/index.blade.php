@@ -10,6 +10,7 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h1 class="h4 mb-0">👥 Gestion des utilisateurs</h1>
     <div class="d-flex gap-2">
+      <a href="{{ route('admin.users.trash') }}" class="btn btn-outline-secondary">🗑️ Corbeille</a>
       <a href="{{ route('admin.users.export', ['q'=>request('q')]) }}" class="btn btn-success">⬇️ Export CSV</a>
       <a href="{{ url('/admin/home') }}" class="btn btn-outline-secondary">⬅️ Retour admin</a>
     </div>
